@@ -84,16 +84,24 @@
 
 
 
-<meta name="description">
+<meta name="description" content="已知线性回归的假设为\(h_{\theta}(X)={\theta}^TX\), 而线性回归的输出为连续值。又已知sigmoid函数，也称为logistic function, \(g(Z)=\frac{1}{1+e^{-z}}\)，其图形如下图所示：
+
+其值范围在[0, 1]之间，因此我们可以有假设\(h_{\theta}(X)=g({\theta}^TX)\)，因为使用了logistic">
 <meta property="og:type" content="article">
-<meta property="og:title" content="logistic regression">
+<meta property="og:title" content="Logistic regression">
 <meta property="og:url" content="http://yoursite.com/2016/05/31/logistic regression/index.html">
 <meta property="og:site_name" content="Gattac">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-05-31T16:07:19.825Z">
+<meta property="og:description" content="已知线性回归的假设为\(h_{\theta}(X)={\theta}^TX\), 而线性回归的输出为连续值。又已知sigmoid函数，也称为logistic function, \(g(Z)=\frac{1}{1+e^{-z}}\)，其图形如下图所示：
+
+其值范围在[0, 1]之间，因此我们可以有假设\(h_{\theta}(X)=g({\theta}^TX)\)，因为使用了logistic">
+<meta property="og:image" content="http://yoursite.com/images/sigmoid.png">
+<meta property="og:updated_time" content="2016-06-01T16:59:18.476Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="logistic regression">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Logistic regression">
+<meta name="twitter:description" content="已知线性回归的假设为\(h_{\theta}(X)={\theta}^TX\), 而线性回归的输出为连续值。又已知sigmoid函数，也称为logistic function, \(g(Z)=\frac{1}{1+e^{-z}}\)，其图形如下图所示：
+
+其值范围在[0, 1]之间，因此我们可以有假设\(h_{\theta}(X)=g({\theta}^TX)\)，因为使用了logistic">
+<meta name="twitter:image" content="http://yoursite.com/images/sigmoid.png">
 
 
 
@@ -111,7 +119,7 @@
   };
 </script>
 
-  <title> logistic regression | Gattac </title>
+  <title> Logistic regression | Gattac </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -231,7 +239,7 @@
             
             
               
-                logistic regression
+                Logistic regression
               
             
           </h1>
@@ -292,6 +300,11 @@
       
         <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+
+<p>已知线性回归的假设为\(h_{\theta}(X)={\theta}^TX\), 而线性回归的输出为连续值。又已知sigmoid函数，也称为logistic function, \(g(Z)=\frac{1}{1+e^{-z}}\)，其图形如下图所示：</p>
+<p><img src="/images/sigmoid.png" alt=""></p>
+<p>其值范围在[0, 1]之间，因此我们可以有假设\(h_{\theta}(X)=g({\theta}^TX)\)，因为使用了logistic函数，因此也称为逻辑回归的假设，对于二分类问题，当其值大于0.5时，判断为positive example，否则为negative example。</p>
+
       
     </div>
 

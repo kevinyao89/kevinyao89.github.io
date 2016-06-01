@@ -234,7 +234,7 @@
               
                 
                 <a class="post-title-link" href="/2016/05/31/logistic regression/" itemprop="url">
-                  logistic regression
+                  Logistic regression
                 </a>
               
             
@@ -298,6 +298,11 @@
           
             <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+
+<p>已知线性回归的假设为\(h_{\theta}(X)={\theta}^TX\), 而线性回归的输出为连续值。又已知sigmoid函数，也称为logistic function, \(g(Z)=\frac{1}{1+e^{-z}}\)，其图形如下图所示：</p>
+<p><img src="/images/sigmoid.png" alt=""></p>
+<p>其值范围在[0, 1]之间，因此我们可以有假设\(h_{\theta}(X)=g({\theta}^TX)\)，因为使用了logistic函数，因此也称为逻辑回归的假设，对于二分类问题，当其值大于0.5时，判断为positive example，否则为negative example。</p>
+
           
         
       
