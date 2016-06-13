@@ -299,103 +299,19 @@
             <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-<p>已知线性回归的假设为\(h_{\theta}(X)={\theta}^TX\), 而线性回归的输出为连续值。又已知sigmoid函数，也称为logistic function, \(g(Z)=\frac{1}{1+e^{-z}}\)，其图形如下图所示：</p>
+<p>逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。</p>
+<h2 id="Hypothesis"><a href="#Hypothesis" class="headerlink" title="Hypothesis"></a>Hypothesis</h2><p>当遇到一个新的样本X时，需要通过某种预测或假设来判断新的样本X的类型，这时我们一般有一个假设函数。逻辑回归的假设为：</p>
+<p>$$h_{\theta}(X)=g({\theta}^TX)$$</p>
+<p>其与线性回归的假设函数很相似\(h_{\theta}(X)={\theta}^TX\)，只是在线性回归的基础上又增加了一个函数\(g(Z)=\frac{1}{1+e^{-z}}\)，这个函数具有以下的图形：</p>
 <p><img src="/images/sigmoid.png" alt=""></p>
-<p>其值范围在[0, 1]之间，因此我们可以有假设\(h_{\theta}(X)=g({\theta}^TX)\)，因为使用了logistic函数，因此也称为逻辑回归的假设，对于二分类问题，当其值大于0.5时，判断为positive example，否则为negative example。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/31/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-05-31T00:14:08+08:00" content="2016-05-31">
-              2016-05-31
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<p>这个函数又称为logistic function，因此也是逻辑回归这个名词的来源，其值的范围在0到1之间。对于线性回归，其预测值为连续的，属于回归问题，对于逻辑回归，通过加上逻辑函数，可将输出值限定在0到1之间，当输出值大于0.5时可以认为是一类，而当输出值小于0.5时，则可以认为是另一类。 </p>
+<h2 id="Cost-function"><a href="#Cost-function" class="headerlink" title="Cost function"></a>Cost function</h2><p>在假设中，对于给定的样本X，其假设是随\(\theta\)值的不同而不同的，即预测的结果取决于参数\(\theta\)。我们的目标就是基于样本，找到一组最优的参数来表达这个模型，这样的一个准则也称为cost function，或者optimization objective，我们直接给出逻辑回归的cost function：</p>
+<p>$$J(\theta)=\frac{1}{m}\sum_{i=1}^mCost(h_{\theta}(X^{(i)}), y^{(i)})$$</p>
+<p>其中：</p>
+<p>$$Cost(h<em>{\theta}(X), y)=\begin{cases}-\log(h\</em>{\theta}(X)), y=1\-\log(1-h_{\theta}(X)), y=0\end{cases}$$</p>
+<p>该定义可以直观地理解为，当样本的标签为1时，我们希望假设的输出越接近于1越好，因而加上log的值就越接近于0；当样本的标签为0时，我们希望假设的输出越接近于0越好，因而\(log(1-h_{\theta}(x))\)的值也越接近于0。因此总的cost function的值也越少。问题转化为找到一组\(\theta\)值使得cost function最小。<br>综合以上两式，cost function可以表达为：</p>
+<p>$$J(\theta)=-\frac{1}{m}[\sum_{i=1}^my^{(i)}\log(h_{\theta}(x^{(i)}))+(1-y^{(i)})\log(1-h_{\theta}(x^{(i)}))]$$</p>
+<p>实际上，该式可以通过统计的论证得到：</p>
 
           
         
@@ -465,7 +381,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">1</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
