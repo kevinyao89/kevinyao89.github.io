@@ -97,7 +97,7 @@ Hypothesis当遇到一个新的样本X时，需要通过某种预测或假设来
 $$h_{\theta}(X)=g({\theta}^TX)$$
 其与线性回归的假设">
 <meta property="og:image" content="http://yoursite.com/images/sigmoid.png">
-<meta property="og:updated_time" content="2016-06-12T14:30:54.355Z">
+<meta property="og:updated_time" content="2016-06-12T14:41:38.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic regression">
 <meta name="twitter:description" content="逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。
@@ -314,9 +314,9 @@ $$h_{\theta}(X)=g({\theta}^TX)$$
 <p>$$J(\theta)=\frac{1}{m}\sum_{i=1}^mCost(h_{\theta}(X^{(i)}), y^{(i)})$$</p>
 <p>其中：</p>
 <p>$$Cost(h<em>{\theta}(X), y)=\begin{cases}-\log(h\</em>{\theta}(X)), y=1\-\log(1-h_{\theta}(X)), y=0\end{cases}$$</p>
-<p>该定义可以直观地理解为，当样本的标签为1时，我们希望假设的输出越接近于1越好，因而加上log的值就越接近于0；当样本的标签为0时，我们希望假设的输出越接近于0越好，因而\(log(1-h_{\theta}(x))\)的值也越接近于0。因此总的cost function的值也越少。问题转化为找到一组\(\theta\)值使得cost function最小。<br>综合以上两式，cost function可以表达为：</p>
+<p>该定义可以直观地理解为，当样本的标签为1时，我们希望假设的输出越接近于1越好，因而加上log的值就越接近于0；当样本的标签为0时，我们希望假设的输出越接近于0越好，因而\(log(1-h_{\theta}(x))\)的值也越接近于0。因此总的cost function的值也越小。问题转化为找到一组\(\theta\)值使得cost function最小。<br>综合以上两式，cost function可以表达为：</p>
 <p>$$J(\theta)=-\frac{1}{m}[\sum_{i=1}^my^{(i)}\log(h_{\theta}(x^{(i)}))+(1-y^{(i)})\log(1-h_{\theta}(x^{(i)}))]$$</p>
-<p>实际上，该式可以通过统计的论证得到：</p>
+<p>实际上，该式可以通过严格的统计论证得到：</p>
 
       
     </div>
