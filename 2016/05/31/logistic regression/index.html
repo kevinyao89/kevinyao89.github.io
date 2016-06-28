@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://yoursite.com/images/3.bmp">
 <meta property="og:image" content="http://yoursite.com/images/lambda1.bmp">
 <meta property="og:image" content="http://yoursite.com/images/lambda2.bmp">
-<meta property="og:updated_time" content="2016-06-26T15:36:09.680Z">
+<meta property="og:updated_time" content="2016-06-28T15:31:24.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic regression">
 <meta name="twitter:description" content="逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。">
@@ -310,14 +310,14 @@
 <h2 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h2><p>在假设中，对于给定的样本X，其假设是随\(\theta\)值的不同而不同的，即预测的结果取决于参数\(\theta\)。我们的目标就是基于样本，找到一组最优的参数来表达这个模型，这样的一个准则也称为cost function，或者optimization objective，我们直接给出逻辑回归的cost function：</p>
 <p>$$J(\theta)=\frac{1}{m}\sum_{i=1}^mCost(h_{\theta}(X^{(i)}), y^{(i)})$$</p>
 <p>其中：</p>
-<p>$$Cost(h<em>{\theta}(X), y)=\begin{cases}-\log(h\</em>{\theta}(X)), y=1\-\log(1-h_{\theta}(X)), y=0\end{cases}$$</p>
+<p>$$Cost(h_{\theta}(X), y)=\begin{cases}-\log(h_{\theta}(X))\ if\ y=1\\<br>-\log(1-h_{\theta}(X))\ if\ y=0\end{cases}$$</p>
 <p>该定义可以直观地理解为，当样本的标签为1时，我们希望假设的输出越接近于1越好，因而加上log的值就越接近于0；当样本的标签为0时，我们希望假设的输出越接近于0越好，因而\(log(1-h_{\theta}(x))\)的值也越接近于0。因此总的cost function的值也越小。问题转化为找到一组\(\theta\)值使得cost function最小。<br>综合以上两式，cost function可以表达为：</p>
 <p>$$J(\theta)=-\frac{1}{m}[\sum_{i=1}^my^{(i)}\log(h_{\theta}(x^{(i)}))+(1-y^{(i)})\log(1-h_{\theta}(x^{(i)}))]$$</p>
 <p>实际上，该cost function可以通过极大似然法推导而来。</p>
 <h2 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h2><p>此时问题转化为了\(min_{\theta}J(\theta)\)，参数的迭代公式：</p>
 <p>$$\theta_j:=\theta_j-\alpha\frac{\partial{J(\theta)}}{\partial\theta_j}$$</p>
 <p>通过求偏导可以得出：</p>
-<p>$$\theta_j:=\theta<em>j-\alpha\frac{i=1}{m}\sum</em>{i=1}^m(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}$$</p>
+<p>$$\theta_j:=\theta_j-\alpha\frac{1}{m}\sum_{i=1}^m(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}$$</p>
 <p>这时可以发现该结论与线性回归的结论是一模一样的，唯一的不同在于\(h_{\theta}(X)\)的定义是不一样的。</p>
 <h2 id="Overfitting-Problem"><a href="#Overfitting-Problem" class="headerlink" title="Overfitting Problem"></a>Overfitting Problem</h2><p>回顾一下逻辑回归的假设为\(h_{\theta}(X)=g({\theta}^TX)\)，其中\(g(Z)=\frac{1}{1+e^{-z}}\)。该假设的输出值仍为一个连续值，只不过当其大于0.5时，认为是一类，当其小于0.5时，认为是另一类。而根据逻辑函数的特性，可以发现，问题其实归结为当Z大于0时，认为是一类，当Z小于0时，认为是另一类。即可以通过\(\theta^TX&gt;0\)或者\(\theta^TX&lt;0\)来判断，\(\theta^TX=0\)称为决策边界（Decision Boundary）。</p>
 <p>当样本有如下分布时：</p>
@@ -335,8 +335,8 @@
 <p>$$J(\theta)=\frac{1}{m}\sum_{i=1}^mCost(h_{\theta}(X^{(i)}), y^{(i)})+\frac{\lambda}{2m}\sum_{j=1}^n\theta^2_j$$</p>
 <p>这样做的意义在于，当我们最小化这个cost function的时候，我们不仅希望让模型去拟合训练样本，同时希望参数\(\theta\)比较小，这样可以削弱决策函数中的高阶项，或者是复杂项，因为正是由于这些复杂的表达导致产生了过拟合的问题。这被称之为Regularized logistic regression。</p>
 <p>其梯度下降算法的偏导结果可以相应的推导为：</p>
-<p>$$\frac{\partial{J(\theta)}}{\partial\theta<em>j}=\frac{1}{m}\times \sum\</em>{i=1}^{m}(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}$$</p>
-<p>$$\frac{\partial{J(\theta)}}{\partial\theta<em>j}=\frac{1}{m}\sum</em>{i=1}^m(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}+\frac{\lambda}{m}\theta_j, for j&gt;=1$$</p>
+<p>$$\frac{\partial{J(\theta)}}{\partial\theta_j}=\frac{1}{m}\sum_{i=1}^{m}(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}, for\ j=0$$</p>
+<p>$$\frac{\partial{J(\theta)}}{\partial\theta_j}=\frac{1}{m}\sum_{i=1}^{m}(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}+\frac{\lambda}{m}\theta_j, for\ j&gt;=1$$</p>
 <p>这里还有一点比较有趣的在于参数\(\lambda\)的选择。当\(\lambda\)过小时，其本身就削弱了trade-off项的影响，因此此时的\(\theta\)比较大也不会过于影响总的cost function，此时就会过拟合问题（overfitting）就会比较严重。特别地，当\(\lambda=0\)时，就好比是任由过拟合问题的发展（No Regularization），如下图：</p>
 <p><img src="/images/lambda1.bmp" alt=""></p>
 <p>而当\(\lambda\)选的比较大时，\(\theta\)必须非常小才可以使cost function变小，因此此时的过拟合不会明显，反而是决策边界对于训练样本的拟合程度不会那么好了（Underfitting）。如下图：</p>
