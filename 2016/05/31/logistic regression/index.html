@@ -90,12 +90,17 @@
 <meta property="og:url" content="http://yoursite.com/2016/05/31/logistic regression/index.html">
 <meta property="og:site_name" content="Gattac">
 <meta property="og:description" content="逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。">
-<meta property="og:image" content="http://yoursite.com/images/sigmoid.png">
-<meta property="og:updated_time" content="2016-06-13T15:42:18.775Z">
+<meta property="og:image" content="http://yoursite.com/images/logisticfunc.bmp">
+<meta property="og:image" content="http://yoursite.com/images/1.bmp">
+<meta property="og:image" content="http://yoursite.com/images/2.bmp">
+<meta property="og:image" content="http://yoursite.com/images/3.bmp">
+<meta property="og:image" content="http://yoursite.com/images/lambda1.bmp">
+<meta property="og:image" content="http://yoursite.com/images/lambda2.bmp">
+<meta property="og:updated_time" content="2016-06-26T15:36:09.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic regression">
 <meta name="twitter:description" content="逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。">
-<meta name="twitter:image" content="http://yoursite.com/images/sigmoid.png">
+<meta name="twitter:image" content="http://yoursite.com/images/logisticfunc.bmp">
 
 
 
@@ -300,7 +305,7 @@
 <h2 id="Hypothesis"><a href="#Hypothesis" class="headerlink" title="Hypothesis"></a>Hypothesis</h2><p>当遇到一个新的样本X时，需要通过某种预测或假设来判断新的样本X的类型，这时我们一般有一个假设函数。逻辑回归的假设为：</p>
 <p>$$h_{\theta}(X)=g({\theta}^TX)$$</p>
 <p>其与线性回归的假设函数很相似\(h_{\theta}(X)={\theta}^TX\)，只是在线性回归的基础上又增加了一个函数\(g(Z)=\frac{1}{1+e^{-z}}\)，这个函数具有以下的图形：</p>
-<p><img src="/images/sigmoid.png" alt=""></p>
+<p><img src="/images/logisticfunc.bmp" alt=""></p>
 <p>这个函数又称为logistic function，因此也是逻辑回归这个名词的来源，其值的范围在0到1之间。对于线性回归，其预测值为连续的，属于回归问题，对于逻辑回归，通过加上逻辑函数，可将输出值限定在0到1之间，当输出值大于0.5时可以认为是一类，而当输出值小于0.5时，则可以认为是另一类。 </p>
 <h2 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h2><p>在假设中，对于给定的样本X，其假设是随\(\theta\)值的不同而不同的，即预测的结果取决于参数\(\theta\)。我们的目标就是基于样本，找到一组最优的参数来表达这个模型，这样的一个准则也称为cost function，或者optimization objective，我们直接给出逻辑回归的cost function：</p>
 <p>$$J(\theta)=\frac{1}{m}\sum_{i=1}^mCost(h_{\theta}(X^{(i)}), y^{(i)})$$</p>
@@ -314,7 +319,30 @@
 <p>通过求偏导可以得出：</p>
 <p>$$\theta_j:=\theta<em>j-\alpha\frac{i=1}{m}\sum</em>{i=1}^m(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}$$</p>
 <p>这时可以发现该结论与线性回归的结论是一模一样的，唯一的不同在于\(h_{\theta}(X)\)的定义是不一样的。</p>
-
+<h2 id="Overfitting-Problem"><a href="#Overfitting-Problem" class="headerlink" title="Overfitting Problem"></a>Overfitting Problem</h2><p>回顾一下逻辑回归的假设为\(h_{\theta}(X)=g({\theta}^TX)\)，其中\(g(Z)=\frac{1}{1+e^{-z}}\)。该假设的输出值仍为一个连续值，只不过当其大于0.5时，认为是一类，当其小于0.5时，认为是另一类。而根据逻辑函数的特性，可以发现，问题其实归结为当Z大于0时，认为是一类，当Z小于0时，认为是另一类。即可以通过\(\theta^TX&gt;0\)或者\(\theta^TX&lt;0\)来判断，\(\theta^TX=0\)称为决策边界（Decision Boundary）。</p>
+<p>当样本有如下分布时：</p>
+<p><img src="/images/1.bmp" alt=""></p>
+<p>一个线性的决策边界\(\theta_0+\theta_1X_1+\theta_2X_2=0\)（假设特征的维度n=2）就可以解决问题；</p>
+<p>而当样本有如下分布时：</p>
+<p><img src="/images/2.bmp" alt=""></p>
+<p>仍然利用线性的决策边界无论如何都无法很好的解决问题，这时可能会采用的决策边界为\(\theta_0+\theta_1X_1+\theta_2X_2+\theta_3X^2_1+\theta_4X^2_2=0\)，此过程亦可称之为Feature Mapping，当特征空间在低维空间线性不可分时，将其扩展到高维特征空间，在高维空间中可以认为是线性可分的；</p>
+<p>对于更加复杂的情况，可能样本还会有如下分布：</p>
+<p><img src="/images/3.bmp" alt=""></p>
+<p>我们可以采用更加复杂的多项式项的表达：</p>
+<p>$$\theta_0+\theta_1X_1+\theta_2X_2+\theta_3X^2_1+\theta_4X^2_1X_2+\theta_5X^2_1X^2_2+\theta_6X^3_1X_2+…$$</p>
+<p>当采用比较复杂的表达时，这个决策边界一般可以很好的区分现有的训练样本，然而由于其过分的刻画了训练样本数据的情况，对于之前从未见到过的新的样本，由于并没有专门进行考虑，往往会产生不那么好的区分效果，这个问题也是算法中很常见的被称之为过拟合（Overfitting）问题。</p>
+<h2 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a>Regularization</h2><p>为了解决过拟合的问题，将原来的cost function做一些改动，加上一些trade off:</p>
+<p>$$J(\theta)=\frac{1}{m}\sum_{i=1}^mCost(h_{\theta}(X^{(i)}), y^{(i)})+\frac{\lambda}{2m}\sum_{j=1}^n\theta^2_j$$</p>
+<p>这样做的意义在于，当我们最小化这个cost function的时候，我们不仅希望让模型去拟合训练样本，同时希望参数\(\theta\)比较小，这样可以削弱决策函数中的高阶项，或者是复杂项，因为正是由于这些复杂的表达导致产生了过拟合的问题。这被称之为Regularized logistic regression。</p>
+<p>其梯度下降算法的偏导结果可以相应的推导为：</p>
+<p>$$\frac{\partial{J(\theta)}}{\partial\theta<em>j}=\frac{1}{m}\times \sum\</em>{i=1}^{m}(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}$$</p>
+<p>$$\frac{\partial{J(\theta)}}{\partial\theta<em>j}=\frac{1}{m}\sum</em>{i=1}^m(h_{\theta}(X^{(i)})-y^{(i)})X_j^{(i)}+\frac{\lambda}{m}\theta_j, for j&gt;=1$$</p>
+<p>这里还有一点比较有趣的在于参数\(\lambda\)的选择。当\(\lambda\)过小时，其本身就削弱了trade-off项的影响，因此此时的\(\theta\)比较大也不会过于影响总的cost function，此时就会过拟合问题（overfitting）就会比较严重。特别地，当\(\lambda=0\)时，就好比是任由过拟合问题的发展（No Regularization），如下图：</p>
+<p><img src="/images/lambda1.bmp" alt=""></p>
+<p>而当\(\lambda\)选的比较大时，\(\theta\)必须非常小才可以使cost function变小，因此此时的过拟合不会明显，反而是决策边界对于训练样本的拟合程度不会那么好了（Underfitting）。如下图：</p>
+<p><img src="/images/lambda2.bmp" alt=""></p>
+<p>参数\(\lambda\)的选择就好比是在两个最终目标中做一个trade-off，具体应用时应当根据实际的情况来进行调节的。</p>
+<h2 id="多分类问题（One-vs-All）"><a href="#多分类问题（One-vs-All）" class="headerlink" title="多分类问题（One vs. All）"></a>多分类问题（One vs. All）</h2>
       
     </div>
 
@@ -450,7 +478,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypothesis"><span class="nav-number">1.</span> <span class="nav-text">Hypothesis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function"><span class="nav-number">2.</span> <span class="nav-text">Cost Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">3.</span> <span class="nav-text">Gradient Descent</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypothesis"><span class="nav-number">1.</span> <span class="nav-text">Hypothesis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function"><span class="nav-number">2.</span> <span class="nav-text">Cost Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">3.</span> <span class="nav-text">Gradient Descent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overfitting-Problem"><span class="nav-number">4.</span> <span class="nav-text">Overfitting Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regularization"><span class="nav-number">5.</span> <span class="nav-text">Regularization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多分类问题（One-vs-All）"><span class="nav-number">6.</span> <span class="nav-text">多分类问题（One vs. All）</span></a></li></ol></div>
             
           </div>
         </section>
