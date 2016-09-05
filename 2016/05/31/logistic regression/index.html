@@ -84,22 +84,22 @@
 
 
 
-<meta name="description" content="逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。">
+<meta name="description" content="Andrew NG在Coursera上的公开课machine learning广受大家的喜爱。本博客的机器学习系列文章目前为自己学习过课程后的一些总结和笔记，以此来梳理自己的思路并供日后回顾之用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Logistic regression">
 <meta property="og:url" content="http://yoursite.com/2016/05/31/logistic regression/index.html">
 <meta property="og:site_name" content="Gattac">
-<meta property="og:description" content="逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。">
+<meta property="og:description" content="Andrew NG在Coursera上的公开课machine learning广受大家的喜爱。本博客的机器学习系列文章目前为自己学习过课程后的一些总结和笔记，以此来梳理自己的思路并供日后回顾之用。">
 <meta property="og:image" content="http://yoursite.com/images/logisticfunc.bmp">
 <meta property="og:image" content="http://yoursite.com/images/1.bmp">
 <meta property="og:image" content="http://yoursite.com/images/2.bmp">
 <meta property="og:image" content="http://yoursite.com/images/3.bmp">
 <meta property="og:image" content="http://yoursite.com/images/lambda1.bmp">
 <meta property="og:image" content="http://yoursite.com/images/lambda2.bmp">
-<meta property="og:updated_time" content="2016-06-28T15:31:24.544Z">
+<meta property="og:updated_time" content="2016-09-05T12:34:03.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic regression">
-<meta name="twitter:description" content="逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。">
+<meta name="twitter:description" content="Andrew NG在Coursera上的公开课machine learning广受大家的喜爱。本博客的机器学习系列文章目前为自己学习过课程后的一些总结和笔记，以此来梳理自己的思路并供日后回顾之用。">
 <meta name="twitter:image" content="http://yoursite.com/images/logisticfunc.bmp">
 
 
@@ -300,8 +300,9 @@
         <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-<p>逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。</p>
+<p>Andrew NG在Coursera上的公开课machine learning广受大家的喜爱。本博客的机器学习系列文章目前为自己学习过课程后的一些总结和笔记，以此来梳理自己的思路并供日后回顾之用。</p>
 <a id="more"></a>
+<p>逻辑回归虽然名为回归，但实际上属于分类问题。逻辑回归是实际很常用的一种算法。有很多实例，譬如判断一封邮件是否为垃圾邮件，判断一个人是否患有癌症，或者判断股价的涨或跌等等。</p>
 <h2 id="Hypothesis"><a href="#Hypothesis" class="headerlink" title="Hypothesis"></a>Hypothesis</h2><p>当遇到一个新的样本X时，需要通过某种预测或假设来判断新的样本X的类型，这时我们一般有一个假设函数。逻辑回归的假设为：</p>
 <p>$$h_{\theta}(X)=g({\theta}^TX)$$</p>
 <p>其与线性回归的假设函数很相似\(h_{\theta}(X)={\theta}^TX\)，只是在线性回归的基础上又增加了一个函数\(g(Z)=\frac{1}{1+e^{-z}}\)，这个函数具有以下的图形：</p>
@@ -342,7 +343,7 @@
 <p>而当\(\lambda\)选的比较大时，\(\theta\)必须非常小才可以使cost function变小，因此此时的过拟合不会明显，反而是决策边界对于训练样本的拟合程度不会那么好了（Underfitting）。如下图：</p>
 <p><img src="/images/lambda2.bmp" alt=""></p>
 <p>参数\(\lambda\)的选择就好比是在两个最终目标中做一个trade-off，具体应用时应当根据实际的情况来进行调节的。</p>
-<h2 id="多分类问题（One-vs-All）"><a href="#多分类问题（One-vs-All）" class="headerlink" title="多分类问题（One vs. All）"></a>多分类问题（One vs. All）</h2>
+
       
     </div>
 
@@ -368,6 +369,20 @@
         </div>
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/05/multi classification/" rel="prev" title="多分类问题">
+                多分类问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -432,7 +447,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -449,7 +464,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -478,7 +493,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypothesis"><span class="nav-number">1.</span> <span class="nav-text">Hypothesis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function"><span class="nav-number">2.</span> <span class="nav-text">Cost Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">3.</span> <span class="nav-text">Gradient Descent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overfitting-Problem"><span class="nav-number">4.</span> <span class="nav-text">Overfitting Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regularization"><span class="nav-number">5.</span> <span class="nav-text">Regularization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多分类问题（One-vs-All）"><span class="nav-number">6.</span> <span class="nav-text">多分类问题（One vs. All）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hypothesis"><span class="nav-number">1.</span> <span class="nav-text">Hypothesis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function"><span class="nav-number">2.</span> <span class="nav-text">Cost Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">3.</span> <span class="nav-text">Gradient Descent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overfitting-Problem"><span class="nav-number">4.</span> <span class="nav-text">Overfitting Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regularization"><span class="nav-number">5.</span> <span class="nav-text">Regularization</span></a></li></ol></div>
             
           </div>
         </section>

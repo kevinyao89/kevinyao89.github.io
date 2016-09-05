@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="multi-classification," />
 
 
 
@@ -84,15 +84,16 @@
 
 
 
-<meta name="description" content="We are drowning in information and starving for knowledge">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gattac">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="之前提到过的逻辑回归，是用于二分类的情况下的。现在可以利用所谓的one-vs-all的方法，将其应用在多分类的情况下。而在这之前，可以先讨论一下公式的向量化问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多分类问题">
+<meta property="og:url" content="http://yoursite.com/2016/09/05/multi classification/index.html">
 <meta property="og:site_name" content="Gattac">
-<meta property="og:description" content="We are drowning in information and starving for knowledge">
+<meta property="og:description" content="之前提到过的逻辑回归，是用于二分类的情况下的。现在可以利用所谓的one-vs-all的方法，将其应用在多分类的情况下。而在这之前，可以先讨论一下公式的向量化问题。">
+<meta property="og:updated_time" content="2016-09-05T14:29:04.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gattac">
-<meta name="twitter:description" content="We are drowning in information and starving for knowledge">
+<meta name="twitter:title" content="多分类问题">
+<meta name="twitter:description" content="之前提到过的逻辑回归，是用于二分类的情况下的。现在可以利用所谓的one-vs-all的方法，将其应用在多分类的情况下。而在这之前，可以先讨论一下公式的向量化问题。">
 
 
 
@@ -110,7 +111,7 @@
   };
 </script>
 
-  <title> Gattac </title>
+  <title> 多分类问题 | Gattac </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -131,9 +132,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -210,9 +209,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -232,10 +231,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/09/05/multi classification/" itemprop="url">
-                  多分类问题
-                </a>
+                多分类问题
               
             
           </h1>
@@ -294,165 +290,78 @@
       
 
       
-        
-          <script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 <p>之前提到过的逻辑回归，是用于二分类的情况下的。现在可以利用所谓的one-vs-all的方法，将其应用在多分类的情况下。而在这之前，可以先讨论一下公式的向量化问题。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/05/multi classification/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
+<a id="more"></a>
+<h2 id="Vectorization"><a href="#Vectorization" class="headerlink" title="Vectorization"></a>Vectorization</h2><p>当选择用Matlab或者Octave来实现算法的时候，由于Matlab适用于矩阵向量等运算，因此可以将算法原来的数学公式向量化，这样往往可以简化编程，可以不用一句循环语句就实现一个算法，这对于编程本身是比较方便的。</p>
+<p>这里首先定义矩阵X与向量\(\theta\):</p>
+<p>$$<br>        X=<br>        \begin{bmatrix}<br>        \cdots&amp;(x^{(1)})^{T}&amp;\cdots \\<br>        \cdots&amp;(x^{(2)})^{T}&amp;\cdots \\<br>        \cdots&amp;\vdots&amp;\cdots \\<br>        \cdots&amp;(x^{(m)})^{T}&amp;\cdots \\<br>        \end{bmatrix}<br>        \ and<br>        \ \theta=<br>        \begin{bmatrix}<br>        \theta_0 \\<br>        \theta_1 \\<br>        \vdots \\<br>        \theta_n \\<br>        \end{bmatrix}<br>$$</p>
+<p>通过计算\(X\theta\)，我们有：</p>
+<p>$$<br>        X\theta=<br>        \begin{bmatrix}<br>        \cdots&amp;(x^{(1)})^{T}\theta&amp;\cdots \\<br>        \cdots&amp;(x^{(2)})^{T}\theta&amp;\cdots \\<br>        \cdots&amp;\vdots&amp;\cdots \\<br>        \cdots&amp;(x^{(m)})^{T}\theta&amp;\cdots \\<br>        \end{bmatrix}<br>        \ =<br>        \begin{bmatrix}<br>        \theta^{T}(x^{(1)}) \\<br>        \theta^{T}(x^{(2)}) \\<br>        \vdots \\<br>        \theta^{T}(x^{(m)}) \\<br>        \end{bmatrix}<br>$$</p>
+<p>再回顾逻辑回归的cost function的公式：</p>
+<p>$$J(\theta)=\frac{1}{m}\sum_{i=1}^m[-y^{(i)}\log(h_{\theta}(X^{(i)}))-(1-y^{(i)})\log(1-h_{\theta}(X^{(i)}))]$$</p>
+<p>其中\(h_{\theta}(X^{(i)})=g(\theta^{T}(x^{(i)}))\)，也就是当我们计算得到\(X\theta\)后，可以同时得到每个样本的预测值，这使得我们在编程实现cost function的表达式的时候，只需要一行公式，而不需要使用任何的循环语句就可以完成代码的编写。</p>
+<p>接下来我们对cost function的梯度公式向量化：</p>
+<p>$$<br>       \begin{bmatrix}<br>       \frac{\partial{J}}{\partial\theta_0} \\<br>       \frac{\partial{J}}{\partial\theta_1} \\<br>       \frac{\partial{J}}{\partial\theta_2} \\<br>       \vdots \\<br>       \frac{\partial{J}}{\partial\theta_n} \\<br>       \end{bmatrix}<br>       \ =<br>       \frac{1}{m}<br>       \begin{bmatrix}<br>       \sum_{i=1}^m((h_{\theta}(X^{(i)})-y^{(i)})x_0^{(i)}) \\<br>       \sum_{i=1}^m((h_{\theta}(X^{(i)})-y^{(i)})x_1^{(i)}) \\<br>       \sum_{i=1}^m((h_{\theta}(X^{(i)})-y^{(i)})x_2^{(i)}) \\<br>       \vdots \\<br>       \sum_{i=1}^m((h_{\theta}(X^{(i)})-y^{(i)})x_n^{(i)}) \\<br>       \end{bmatrix} \\<br>       =\frac{1}{m}\sum_{i=1}^m((h_{\theta}(X^{(i)})-y^{(i)})x^{(i)}) \\<br>       =\frac{1}{m}X^{T}(h_{\theta}(x)-y)<br>$$</p>
+<p>其中</p>
+<p>$$<br>       h_{\theta}(x)-y\ =<br>       \begin{bmatrix}<br>       h_{\theta}(x^{(1)})-y^{(1)} \\<br>       h_{\theta}(x^{(1)})-y^{(1)} \\<br>       \vdots \\<br>       h_{\theta}(x^{(1)})-y^{(1)} \\<br>       \end{bmatrix}<br>$$</p>
+<p>在matlab中，可以不使用循环语句，利用上面的公式完成梯度的计算。而计算好cost function以及梯度后，可以通过迭代的方式得到最优值。</p>
+<h2 id="多分类问题（One-vs-All）"><a href="#多分类问题（One-vs-All）" class="headerlink" title="多分类问题（One vs. All）"></a>多分类问题（One vs. All）</h2><p>当样本中含有多类样本时，依次将每一类作为正样本，其余所有样本作为负样本，依次训练得到相应每一类样本的分类器。将测试样本输入所有的分类器，哪一个分类器的响应值最大，就将该样本判断为是某一类的。</p>
+
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/31/logistic regression/" itemprop="url">
-                  Logistic regression
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-05-31T23:34:00+08:00" content="2016-05-31">
-              2016-05-31
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/multi-classification/" rel="tag">#multi-classification</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<p>Andrew NG在Coursera上的公开课machine learning广受大家的喜爱。本博客的机器学习系列文章目前为自己学习过课程后的一些总结和笔记，以此来梳理自己的思路并供日后回顾之用。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/31/logistic regression/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/31/logistic regression/" rel="next" title="Logistic regression">
+                <i class="fa fa-chevron-left"></i> Logistic regression
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -460,6 +369,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -479,8 +392,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/mataila.jpg"
@@ -530,6 +452,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vectorization"><span class="nav-number">1.</span> <span class="nav-text">Vectorization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多分类问题（One-vs-All）"><span class="nav-number">2.</span> <span class="nav-text">多分类问题（One vs. All）</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -626,6 +559,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
